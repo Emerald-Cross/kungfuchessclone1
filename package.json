@@ -1,0 +1,18 @@
+{
+  "name": "kungfu-chess",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Real-time (kung-fu) chess for a few friends. Express + Socket.IO.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/logic.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}
