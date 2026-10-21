@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14161a">
+  <title>Kung-Fu Chess</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-view="full">
+  <header id="topbar">
+    <h1>Kung-Fu Chess</h1>
+    <div class="spacer"></div>
+    <span id="conn" class="pill">connecting&hellip;</span>
+    <button id="viewToggle" class="ghost" type="button">Compact view</button>
+  </header>
+
+  <main>
+    <!-- Lobby -->
+    <section id="lobby" class="card">
+      <h2>Play</h2>
+      <label class="field">Your name
+        <input id="name" maxlength="16" autocomplete="nickname" placeholder="Player">
+      </label>
+      <div class="row">
+        <label class="field grow">Cooldown after a move
+          <select id="cooldown">
+            <option value="2000">2 seconds (frantic)</option>
+            <option value="4000" selected>4 seconds</option>
+            <option value="6000">6 seconds</option>
+            <option value="10000">10 seconds (calm)</option>
+          </select>
+        </label>
+        <button id="createBtn" type="button" class="primary">Create room</button>
+      </div>
+      <div class="divider"><span>or join a friend</span></div>
+      <div class="row">
+        <input id="code" class="grow code" maxlength="4" placeholder="CODE" autocapitalize="characters" autocomplete="off" spellcheck="false" aria-label="Room code">
+        <button id="joinBtn" type="button" class="primary">Join</button>
+      </div>
+      <p id="lobbyMsg" class="msg" role="status"></p>
+      <details class="how">
+        <summary>How it works</summary>
+        <p>There are no turns. Move any of your pieces whenever you like &mdash; but after a piece moves it has to cool down before it can move again. Capture the enemy king to win.</p>
+        <p>Tap a piece, then tap where it should go. Pieces move instantly. No check, castling or en passant; pawns promote to queens.</p>
+      </details>
+    </section>
+
+    <!-- Game -->
+    <section id="game" hidden>
+      <div id="statusbar">
+        <span id="statusText">&nbsp;</span>
+        <span class="spacer"></span>
+        <button id="logToggle" class="ghost" type="button" aria-expanded="false">Moves</button>
+      </div>
+
+      <div id="layout">
+        <div id="boardWrap">
+          <div id="playerTop" class="player"></div>
+          <div id="stage">
+            <div id="board" role="group" aria-label="Chess board"></div>
+            <div id="banner" hidden>
+              <div id="bannerText"></div>
+              <div id="bannerSub"></div>
+              <button id="rematchBtn" type="button" class="primary" hidden>Rematch</button>
+            </div>
+          </div>
+          <div id="playerBottom" class="player"></div>
+        </div>
+
+        <aside id="side">
+          <div class="card" id="roomCard">
+            <div class="row between">
+              <div>Room <b id="roomCode" class="code-lg"></b></div>
+              <div class="muted" id="cooldownInfo"></div>
+            </div>
+            <div class="row">
+              <input id="inviteLink" class="grow" readonly aria-label="Invite link">
+              <button id="copyLink" type="button" class="ghost">Copy</button>
+            </div>
+          </div>
+
+          <div class="card" id="logCard">
+            <h3>Moves <span class="muted small">(server time since start)</span></h3>
+            <ol id="log"></ol>
+            <p id="logEmpty" class="muted small">No moves yet.</p>
+          </div>
+
+          <div class="card small muted" id="netInfo"></div>
+
+          <button id="leaveBtn" type="button" class="ghost">Leave room</button>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="rules.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
